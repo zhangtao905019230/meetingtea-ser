@@ -7,6 +7,7 @@ var logger = require('morgan');
 
 var goodsRouter = require('./routes/goods');
 var userRouter = require('./routes/user');
+var pcGoodsRouter = require('./routes/pc-goods')
 
 var app = express();
 
@@ -15,7 +16,11 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "x-requested-with,Authorization");
+  res.setHeader("Access-Control-Expose-Headers", "*");
   next();
 });
 app.use(logger('dev'));
@@ -26,6 +31,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/goods' ,goodsRouter);
 app.use('/user', userRouter);
+app.use('/pc-goods', pcGoodsRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
