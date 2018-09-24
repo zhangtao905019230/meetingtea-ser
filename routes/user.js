@@ -46,6 +46,16 @@ router.post('/login', (req, res, next) => {
     let token = jwt.sign(resData, 'myjwttest', { expiresIn: 60*60*24 })
     res.send({resData:resData,token:token})
   }
+  else if(obj.user_name == 'gaoyz1'&&obj.user_password == '123'){
+    let resData = {
+      role: 'user',
+      user_name: obj.user_name,
+      nickname: 'gaoyz1',
+      phone_number: '18158899797'
+    }
+    let token = jwt.sign(resData, 'myjwttest', { expiresIn: 60*60*24 })
+    res.send({resData:resData,token:token})
+  }
   else{
     res.send('no')
   }
