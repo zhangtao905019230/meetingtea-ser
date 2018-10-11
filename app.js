@@ -8,6 +8,8 @@ var logger = require('morgan');
 var goodsRouter = require('./routes/goods');
 var userRouter = require('./routes/user');
 var pcGoodsRouter = require('./routes/pc-goods')
+var pcUserRouter = require('./routes/pc-user')
+var pcCheckAuth = require('./routes/pc-check-auth')
 
 var app = express();
 
@@ -31,7 +33,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/goods' ,goodsRouter);
 app.use('/user', userRouter);
-app.use('/pc-goods', pcGoodsRouter)
+app.use('/pc-goods', pcGoodsRouter);
+app.use('/pc-user', pcUserRouter);
+app.use('/pc-check-auth', pcCheckAuth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
