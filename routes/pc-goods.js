@@ -1,5 +1,5 @@
-var express = require('express')
-var router = express.Router()
+var express = require('express');
+var router = express.Router();
 
 // Import mongodb dependency
 const mongodb = require('mongodb')
