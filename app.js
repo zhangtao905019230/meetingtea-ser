@@ -9,6 +9,7 @@ var goodsRouter = require('./routes/goods');
 var userRouter = require('./routes/user');
 var pcGoodsRouter = require('./routes/pc-goods')
 var pcUserRouter = require('./routes/pc-user')
+var articleRouters = require('./routes/articles')
 var pcCheckAuth = require('./routes/pc-check-auth')
 
 var app = express();
@@ -35,6 +36,7 @@ app.use('/goods' ,goodsRouter);
 app.use('/user', userRouter);
 app.use('/pc-goods', pcGoodsRouter);
 app.use('/pc-user', pcUserRouter);
+app.use('/articles', articleRouters);
 app.use('/pc-check-auth', pcCheckAuth);
 
 // catch 404 and forward to error handler
