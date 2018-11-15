@@ -10,7 +10,7 @@ var userRouter = require('./routes/user');
 var pcGoodsRouter = require('./routes/pc-goods')
 var pcUserRouter = require('./routes/pc-user')
 var articleRouters = require('./routes/articles')
-var pcCheckAuth = require('./routes/pc-check-auth')
+var pcCheckAuth = require('./routes/pc-check-auth');
 
 var app = express();
 
