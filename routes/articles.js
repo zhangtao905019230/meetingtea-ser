@@ -4,6 +4,13 @@ var router = express.Router();
 var request = require('request')
 var cheerio = require('cheerio')
 
+// Import mongodb dependency
+const mongodb = require('mongodb')
+const MongoClient = mongodb.MongoClient
+const ObjectID = mongodb.ObjectID
+const url = 'mongodb://101.132.46.146:27017'
+const dbName = 'meetingtea'
+
 
 function proxyRequestArticleDetails(path,res){
   request(path, function (error, response, body) {
@@ -62,6 +69,44 @@ router.get('/content', (req, res, next) => {
   console.log(req.query.arctic_id)
   // https://www.chayu.com/article/198836
   proxyRequestArticleContent('https://www.chayu.com/article/'+req.query.arctic_id,res)
+});
+
+router.get('/addArticle', (req, res, next) => {
+  console.log(req.query)
+
+  MongoClient.connect(url, (err, client) => {
+	  const db = client.db(dbName);
+    const collection = db.collection('testarticle');
+    collection.insertMany([req.query],(err, result) => {
+      res.send("ok");
+      client.close()
+		});
+	});
+});
+
+router.get('/delArticle', (req, res, next) => {
+  console.log(req.query._id)
+
+  MongoClient.connect(url, (err, client) => {
+	  const db = client.db(dbName);
+    const collection = db.collection('testarticle');
+    collection.deleteOne({_id:ObjectID(req.query._id)},function(err, result) {
+      // console.log(result)
+      res.send("ok")
+      client.close()
+    })
+	});
+});
+
+router.get('/getTestArticle', (req, res, next) => {
+  MongoClient.connect(url, (err, client) => {
+	  const db = client.db(dbName);
+    const collection = db.collection('testarticle');
+    collection.find({}).toArray((err, docs) => {
+			res.send(docs)
+	    client.close()
+    });
+	});
 });
 
 module.exports = router;

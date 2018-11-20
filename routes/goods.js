@@ -45,7 +45,7 @@ router.get('/delGoods', (req, res, next) => {
 	MongoClient.connect(url, (err, client) => {
 	  const db = client.db(dbName);
     const collection = db.collection('goods');
-    collection.deleteOne({_id:ObjectID(req.query['0'])},function(err, result) {
+    collection.deleteOne({_id:ObjectID("5be3fe53013ff81a60c76d64")},function(err, result) {
       res.send("ok")
     })
 	});
