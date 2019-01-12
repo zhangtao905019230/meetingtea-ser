@@ -5,12 +5,13 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 
-var goodsRouter = require('./routes/goods');
-var userRouter = require('./routes/user');
-var pcGoodsRouter = require('./routes/pc-goods')
-var pcUserRouter = require('./routes/pc-user')
-var articleRouters = require('./routes/articles')
-var pcCheckAuth = require('./routes/pc-check-auth');
+var oaGoodsRouter = require('./routes/oa-goods');
+var oaUserRouter = require('./routes/oa-user');
+var pcGoodsRouter = require('./routes/pc-goods');
+var pcUserRouter = require('./routes/pc-user');
+var oaArticleRouters = require('./routes/oa-articles');
+var mobileGoodsRouter = require('./routes/mobile-goods');
+// var pcCheckAuth = require('./routes/pc-check-auth');
 
 var app = express();
 
@@ -32,12 +33,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/goods' ,goodsRouter);
-app.use('/user', userRouter);
+app.use('/oa-goods' ,oaGoodsRouter);
+app.use('/oa-user', oaUserRouter);
 app.use('/pc-goods', pcGoodsRouter);
 app.use('/pc-user', pcUserRouter);
-app.use('/articles', articleRouters);
-app.use('/pc-check-auth', pcCheckAuth);
+app.use('/oa-articles', oaArticleRouters);
+app.use('/mobile-goods', mobileGoodsRouter)
+// app.use('/pc-check-auth', pcCheckAuth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

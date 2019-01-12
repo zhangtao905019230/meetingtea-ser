@@ -13,7 +13,7 @@ router.get('/getEightHotGoods', (req, res, next) => {
 	  const db = client.db(dbName)
     const collection = db.collection('goods')
     collection.find({}).toArray((err, docs) => {
-			res.send(docs)
+			res.send({docs:docs,type:'arr'})
 	    client.close()
     });
 	});
