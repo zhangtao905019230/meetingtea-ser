@@ -1,50 +1,43 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request')
-var cheerio = require('cheerio')
+var cheerio = require('cheerio');
 
-router.get('/lv2-list', (req, res, next) => {
-  let originUrl = 'http://m.you.163.com/item/list'
-	let path = originUrl+'?categoryId='
-    +req.query.categoryId+'&subCategoryId='+req.query.subCategoryId
+var homepageData = require('./../assets/homepage')
+
+router.get('/lv1-category', (req, res, next) => {
+  let originUrl = 'https://m.youpin.mi.com/lasagne/page/'
+  let path = originUrl + req.query.id
 
   request(path, function (error, response, body) {
     if (!error && response.statusCode == 200) {
-      let $ = cheerio.load(body.toString());
-      let str = $('script').eq(9).html();
-      eval(str)
-      res.send(ftlData)
+      res.send(body)
     }
   });
 });
 
-router.get('/lv1-list', (req, res, next) => {
-  let originUrl = 'http://m.you.163.com/item/list'
-  let path = originUrl+'?categoryId='
-    +req.query.categoryId
-
-  request(path, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      let $ = cheerio.load(body.toString());
-      let str = $('script').eq(9).html()
-      eval(str)
-      res.send(jsonData);
-    }
-  });
+router.get('/homepage', (req, res, next) => {
+  res.send(homepageData)
 });
 
-router.get('/detail', (req, res, next) => {
-  let originUrl = 'http://m.you.163.com/item/detail'
-  let path = originUrl+'?id='+req.query.id
+// 。。
+router.get('/lv1-goodscategory', (req, res, next) => {
+  let reqBody = {"request": {"model": "Homepage", "action": "BuildClass", "parameters": {"id": -6}}}
+  let originUrl = 'https://app.youpin.mi.com/app/shopv3/pipe'
+  let path = originUrl
 
-  request(path, function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-      let $ = cheerio.load(body.toString());
-      let str = $('script').eq(9).html()
-      eval(str)
-      res.send(jsonData);
-    }
-  });
+  // res.send('xxxx')
+
+  request({
+    url: path,
+    method: 'POST',
+    body: '%7B%22request%22%3A%7B%22model%22%3A%22Homepage%22%2C%22action%22%3A%22BuildClass%22%2C%22parameters%22%3A%7B%22id%22%3A-6%7D%7D%7D',
+    headers: {
+      'content-type': 'application/x-www-form-urlencoded',
+    },
+  }, (error, response, body) => {
+    res.send(body)
+  })
 });
 
 module.exports = router;
