@@ -20,6 +20,10 @@ router.get('/homepage', (req, res, next) => {
   res.send(homepageData)
 });
 
+router.get('/test', (req, res, next) => {
+  res.send('hello world!')
+});
+
 // 。。
 router.get('/lv1-goodscategory', (req, res, next) => {
   let reqBody = {"request": {"model": "Homepage", "action": "BuildClass", "parameters": {"id": -6}}}
