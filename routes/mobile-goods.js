@@ -21,7 +21,7 @@ router.get('/homepage', (req, res, next) => {
 });
 
 router.get('/test', (req, res, next) => {
-  res.send('hello world!')
+  res.send('hello world!,taotao')
 });
 
 // 。。
