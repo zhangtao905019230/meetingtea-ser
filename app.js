@@ -11,6 +11,7 @@ var pcGoodsRouter = require('./routes/pc-goods');
 var pcUserRouter = require('./routes/pc-user');
 var oaArticleRouters = require('./routes/oa-articles');
 var mobileGoodsRouter = require('./routes/mobile-goods');
+var mobilePictureRouter = require('./routes/mobile-picture')
 // var pcCheckAuth = require('./routes/pc-check-auth');
 
 var app = express();
@@ -38,7 +39,8 @@ app.use('/oa-user', oaUserRouter);
 app.use('/pc-goods', pcGoodsRouter);
 app.use('/pc-user', pcUserRouter);
 app.use('/oa-articles', oaArticleRouters);
-app.use('/mobile-goods', mobileGoodsRouter)
+app.use('/mobile-goods', mobileGoodsRouter);
+app.use('/mobile-picture', mobilePictureRouter)
 // app.use('/pc-check-auth', pcCheckAuth);
 
 // catch 404 and forward to error handler

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var request = require('request')
-var cheerio = require('cheerio');
 
 var homepageData = require('./../assets/homepage')
 
@@ -15,23 +14,16 @@ router.get('/lv1-category', (req, res, next) => {
     }
   });
 });
-
 router.get('/homepage', (req, res, next) => {
   res.send(homepageData)
 });
-
 router.get('/test', (req, res, next) => {
   res.send('hello world!,taotao')
 });
-
-// 。。
 router.get('/lv1-goodscategory', (req, res, next) => {
   let reqBody = {"request": {"model": "Homepage", "action": "BuildClass", "parameters": {"id": -6}}}
   let originUrl = 'https://app.youpin.mi.com/app/shopv3/pipe'
   let path = originUrl
-
-  // res.send('xxxx')
-
   request({
     url: path,
     method: 'POST',
