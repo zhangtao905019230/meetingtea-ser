@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 let request = require('request');
 const multer  = require('multer');
+let fs = require('fs')
 
 let storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -23,6 +24,19 @@ if ('development' === env) {
 router.post('/uploader', upload.single('avatar'), function(req, res, next) {
   let file = req.file;
   console.log(file)
-  res.json({filePath:api+'/uploads/'+file.originalname});
+  fs.writeFile('public/test.txt', req.file.originalname,function(err){
+    if(err) console.log('写文件操作失败');
+    else console.log('写文件操作成功');
+  });
+  res.json({filePath:'/uploads/'+file.originalname});
 });
+
+router.get('/init-touxiang', function(req, res, next) {
+  fs.readFile('public/test.txt', 'utf8', function(err, data){
+    console.log(data);
+    res.send('/uploads/'+data)
+  });
+});
+
+
 module.exports = router;
